@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>¡Feliz Cumpleaños!</title>
+  <title>¡Feliz Cumpleaños Cinnamoroll!</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,298 +12,196 @@
     }
 
     body {
-      background-color: #2bbdf1;
-      font-family: 'Arial Rounded MT Bold', 'Fredoka', 'Comic Sans MS', sans-serif;
+      background-color: #1baee8;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       min-height: 100vh;
-      padding: 20px 10px 40px 10px;
       overflow: hidden;
-      cursor: pointer;
+      font-family: Arial, sans-serif;
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
-      position: relative;
     }
 
-    /* Fondo de regalos abajo */
-    .floor {
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    /* Contenedor principal */
+    .card-container {
+      position: relative;
       width: 100%;
-      height: 120px;
-      background-color: #9cb1e9;
-      border-top: 4px solid #000;
-      z-index: 0;
-    }
-
-    /* Título estilo la imagen */
-    .title-container {
-      margin-top: 20px;
-      text-align: center;
-      z-index: 2;
-    }
-
-    h1 {
-      color: #ffffff;
-      font-size: clamp(2rem, 8vw, 3.2rem);
-      font-weight: 900;
-      text-shadow: 
-        -3px -3px 0 #000,  
-         3px -3px 0 #000,
-        -3px  3px 0 #000,
-         3px  3px 0 #000,
-         5px  5px 0px rgba(0,0,0,0.2);
-      letter-spacing: 1px;
-      line-height: 1.1;
-    }
-
-    /* Stage principal */
-    .stage {
-      position: relative;
-      width: 320px;
-      height: 320px;
+      max-width: 420px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      transition: transform 0.1s ease-out;
-      z-index: 2;
-      margin-bottom: 20px;
-    }
-
-    /* Cinnamoroll principal */
-    .cinnamoroll-container {
-      position: relative;
-      width: 280px;
-      height: 200px;
-    }
-
-    /* Orejas estilo imagen */
-    .ear {
-      position: absolute;
-      width: 150px;
-      height: 55px;
-      background-color: #ffffff;
-      border: 4px solid #000;
-      border-radius: 60px;
-      top: 40px;
-      transition: transform 0.1s ease-out;
-      z-index: 1;
-    }
-
-    .ear.left {
-      left: -85px;
-      transform-origin: right center;
-      transform: rotate(-5deg);
-    }
-
-    .ear.right {
-      right: -85px;
-      transform-origin: left center;
-      transform: rotate(5deg);
-    }
-
-    /* Cabeza */
-    .head {
-      position: absolute;
-      width: 210px;
-      height: 125px;
-      background-color: #ffffff;
-      border: 4px solid #000;
-      border-radius: 50% / 50%;
-      top: 10px;
-      left: 35px;
-      z-index: 3;
-    }
-
-    /* Ojos y Boca */
-    .eye {
-      position: absolute;
-      width: 16px;
-      height: 22px;
-      background-color: #2bbdf1;
-      border-radius: 50%;
-      top: 50px;
-    }
-
-    .eye.left { left: 55px; }
-    .eye.right { right: 55px; }
-
-    .cheek {
-      position: absolute;
-      width: 30px;
-      height: 16px;
-      background-color: #ffb6c1;
-      border-radius: 50%;
-      top: 65px;
-      opacity: 0.85;
-    }
-
-    .cheek.left { left: 25px; }
-    .cheek.right { right: 25px; }
-
-    /* Boca en forma de w */
-    .mouth {
-      position: absolute;
-      width: 20px;
-      height: 10px;
-      top: 65px;
-      left: 95px;
-      display: flex;
       justify-content: center;
+      padding: 10px;
     }
-    
-    .mouth::before, .mouth::after {
-      content: '';
+
+    /* Marco de la imagen original */
+    .poster-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Cartel flotante "TE AMOOOP" */
+    .love-banner {
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      background-color: #ff80ab;
+      color: #ffffff;
+      border: 4px solid #000;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-shadow: 2px 2px 0px #000;
+      box-shadow: 4px 4px 0px #000;
+      z-index: 20;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .love-banner.show {
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* Pastel con Vela en la pata de Cinnamoroll */
+    .cake-container {
+      position: absolute;
+      bottom: 8%;
+      left: 45%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      z-index: 15;
+    }
+
+    /* Vela y Llama */
+    .candle {
+      position: relative;
       width: 10px;
-      height: 8px;
+      height: 25px;
+      background: linear-gradient(to bottom, #ff4081, #ffffff);
+      border: 2px solid #000;
+      border-radius: 3px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      width: 14px;
+      height: 20px;
+      background-color: #ffeb3b;
+      border: 2px solid #000;
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 10px #ff9800;
+      transition: transform 0.3s ease;
+      animation: flicker 0.6s infinite alternate;
+    }
+
+    .flame.lit {
+      transform: translateX(-50%) scale(1);
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+      100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+    }
+
+    /* Cuerpo del Pastel */
+    .cake {
+      position: relative;
+      width: 75px;
+      height: 45px;
+      background-color: #ffffff;
+      border: 3px solid #000;
+      border-radius: 8px 8px 12px 12px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+    }
+
+    .cake-top {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 14px;
+      background-color: #ff80ab;
       border-bottom: 3px solid #000;
-      border-radius: 0 0 8px 8px;
-      display: inline-block;
+      border-radius: 5px 5px 0 0;
     }
 
-    /* Cuerpo y Cola */
-    .body {
+    .cake-cherry {
       position: absolute;
-      width: 90px;
-      height: 80px;
-      background-color: #ffffff;
-      border: 4px solid #000;
-      border-radius: 45px;
-      bottom: 5px;
-      left: 95px;
-      z-index: 2;
-    }
-
-    .tail {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background-color: #ffffff;
-      border: 4px solid #000;
-      border-radius: 50%;
-      bottom: 25px;
-      left: 70px;
-      z-index: 2;
-    }
-
-    .hand-raised {
-      position: absolute;
-      width: 25px;
-      height: 35px;
-      background-color: #ffffff;
-      border: 4px solid #000;
-      border-radius: 20px;
-      top: 80px;
-      left: 80px;
-      z-index: 4;
-      transform: rotate(-20deg);
-    }
-
-    /* Globo rojo flotando */
-    .balloon-red {
-      position: absolute;
-      top: -60px;
-      right: 40px;
-      width: 55px;
-      height: 65px;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
       background-color: #e52521;
+      border: 2px solid #000;
+      border-radius: 50%;
+    }
+
+    /* Botón decorativo */
+    .btn-celebrate {
+      margin-top: 15px;
+      padding: 12px 24px;
+      background-color: #ffffff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0px #000;
+      transition: transform 0.1s, box-shadow 0.1s;
+      z-index: 10;
+    }
+
+    .btn-celebrate:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #000;
+    }
+
+    /* Globos cayendo */
+    .falling-balloon {
+      position: fixed;
+      top: -100px;
+      width: 50px;
+      height: 65px;
       border: 3px solid #000;
       border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-      z-index: 5;
-      animation: floatBalloon 2s infinite alternate ease-in-out;
+      z-index: 50;
+      pointer-events: none;
+      animation: dropBalloon 4s linear forwards;
     }
 
-    .balloon-red::after {
+    .falling-balloon::after {
       content: '';
       position: absolute;
       bottom: -12px;
-      left: 24px;
+      left: 22px;
       width: 2px;
       height: 15px;
       background-color: #000;
     }
 
-    @keyframes floatBalloon {
-      0% { transform: translateY(0px) rotate(-3deg); }
-      100% { transform: translateY(-10px) rotate(3deg); }
-    }
-
-    /* Regalos en la base */
-    .gifts-container {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .gift {
-      position: relative;
-      border: 3px solid #000;
-    }
-
-    .gift-1 {
-      width: 45px;
-      height: 45px;
-      background-color: #d80027;
-    }
-    .gift-1::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 18px; width: 9px; height: 100%;
-      background-color: #ffda44;
-    }
-
-    .gift-2 {
-      width: 40px;
-      height: 40px;
-      background-color: #00a0e9;
-    }
-    .gift-2::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 15px; width: 10px; height: 100%;
-      background-color: #ff80ab;
-    }
-
-    .gift-3 {
-      width: 50px;
-      height: 45px;
-      background-color: #ffffff;
-    }
-    .gift-3::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 20px; width: 10px; height: 100%;
-      background-color: #ff80ab;
-    }
-
-    /* Botón de acción */
-    .btn {
-      padding: 14px 28px;
-      background-color: #ffffff;
-      color: #000;
-      border: 3px solid #000;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 4px 4px 0px #000;
-      transition: transform 0.1s, box-shadow 0.1s;
-      z-index: 10;
-    }
-
-    .btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px #000;
+    @keyframes dropBalloon {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(20deg); opacity: 0.9; }
     }
 
     /* Confeti */
@@ -315,7 +213,7 @@
       border: 1px solid #000;
       border-radius: 2px;
       animation: fall 3s linear forwards;
-      z-index: 20;
+      z-index: 100;
     }
 
     @keyframes fall {
@@ -328,80 +226,62 @@
 </head>
 <body>
 
-  <div class="title-container">
-    <h1>¡Feliz cumpleaños!</h1>
-  </div>
+  <div class="card-container">
+    <div class="poster-wrapper">
+      <img src="cinnamoroll.png" alt="¡Feliz cumpleaños Cinnamoroll!" class="poster-img">
+      
+      <!-- Mensaje Te amo -->
+      <div class="love-banner" id="loveBanner">¡Te amooop! ❤️</div>
 
-  <div class="stage" id="stage">
-    <div class="cinnamoroll-container">
-      <div class="balloon-red"></div>
-      <div class="ear left" id="earLeft"></div>
-      <div class="ear right" id="earRight"></div>
-      <div class="head">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="cheek left"></div>
-        <div class="cheek right"></div>
-        <div class="mouth"></div>
+      <!-- Pastel Interactivo -->
+      <div class="cake-container" onclick="encenderVela(event)">
+        <div class="candle">
+          <div class="flame" id="flame"></div>
+        </div>
+        <div class="cake">
+          <div class="cake-cherry"></div>
+          <div class="cake-top"></div>
+        </div>
       </div>
-      <div class="tail"></div>
-      <div class="body"></div>
-      <div class="hand-raised"></div>
     </div>
-  </div>
 
-  <button class="btn" onclick="lanzarConfeti(event)">✨ ¡Celebrar con Confeti! ✨</button>
-
-  <div class="floor"></div>
-
-  <div class="gifts-container">
-    <div class="gift gift-1"></div>
-    <div class="gift gift-2"></div>
-    <div class="gift gift-3"></div>
+    <button class="btn-celebrate" onclick="encenderVela(event)">🕯️ Toca para encender la vela 🕯️</button>
   </div>
 
   <script>
-    const stage = document.getElementById('stage');
-    const earLeft = document.getElementById('earLeft');
-    const earRight = document.getElementById('earRight');
+    let velaEncendida = false;
 
-    // Movimiento responsivo
-    function handleMove(clientX, clientY) {
-      const x = (clientX - window.innerWidth / 2) / 25;
-      const y = (clientY - window.innerHeight / 2) / 25;
+    function encenderVela(e) {
+      if (e) e.stopPropagation();
+      
+      const flame = document.getElementById('flame');
+      const loveBanner = document.getElementById('loveBanner');
 
-      stage.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.3}deg)`;
-      earLeft.style.transform = `rotate(${-5 + x * 0.4}deg)`;
-      earRight.style.transform = `rotate(${5 + x * 0.4}deg)`;
+      flame.classList.add('lit');
+      loveBanner.classList.add('show');
+
+      // Lanzar la lluvia de globos y confeti
+      lanzarGlobos();
+      lanzarConfeti();
     }
 
-    document.addEventListener('mousemove', (e) => {
-      handleMove(e.clientX, e.clientY);
-    });
+    function lanzarGlobos() {
+      const colors = ['#e52521', '#ffda44', '#00a0e9', '#ff80ab', '#ab47bc', '#4caf50'];
+      
+      for (let i = 0; i < 18; i++) {
+        setTimeout(() => {
+          const balloon = document.createElement('div');
+          balloon.classList.add('falling-balloon');
+          balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          balloon.style.left = `${Math.random() * 85 + 5}%`;
+          balloon.style.animationDuration = `${3 + Math.random() * 2}s`;
 
-    document.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        handleMove(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
+          document.body.appendChild(balloon);
 
-    function triggerConfetti(clientX, clientY) {
-      for (let i = 0; i < 15; i++) {
-        createConfetti(clientX, clientY);
+          setTimeout(() => balloon.remove(), 5000);
+        }, i * 150);
       }
     }
-
-    document.addEventListener('click', (e) => {
-      if (e.target.tagName === 'BUTTON') return;
-      triggerConfetti(e.clientX, e.clientY);
-    });
-
-    document.addEventListener('touchstart', (e) => {
-      if (e.target.tagName === 'BUTTON') return;
-      if (e.touches.length > 0) {
-        triggerConfetti(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
 
     function createConfetti(x, y) {
       const confetti = document.createElement('div');
@@ -410,25 +290,22 @@
       const colors = ['#e52521', '#ffda44', '#00a0e9', '#ff80ab', '#ffffff'];
       confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       
-      confetti.style.left = `${x + (Math.random() * 80 - 40)}px`;
-      confetti.style.top = `${y + (Math.random() * 80 - 40)}px`;
+      confetti.style.left = `${x + (Math.random() * 60 - 30)}px`;
+      confetti.style.top = `${y + (Math.random() * 60 - 30)}px`;
 
       document.body.appendChild(confetti);
 
-      setTimeout(() => {
-        confetti.remove();
-      }, 3000);
+      setTimeout(() => confetti.remove(), 3000);
     }
 
-    function lanzarConfeti(e) {
-      if (e) e.stopPropagation();
+    function lanzarConfeti() {
       for (let i = 0; i < 50; i++) {
         setTimeout(() => {
           createConfetti(
             Math.random() * window.innerWidth, 
             Math.random() * (window.innerHeight / 2)
           );
-        }, i * 30);
+        }, i * 20);
       }
     }
   </script>
