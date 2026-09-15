@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>¡Feliz Cumpleaños!</title>
+  <title>¡Feliz Cumpleaños mi amorr!</title>
   <style>
     * {
       box-sizing: border-box;
@@ -19,13 +19,13 @@
       justify-content: center;
       min-height: 100vh;
       overflow: hidden;
-      font-family: 'Arial Rounded MT Bold', 'Fredoka', sans-serif;
+      font-family: Arial, sans-serif;
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
     }
 
-    /* Contenedor Principal */
+    /* Contenedor principal */
     .card-container {
       position: relative;
       width: 100%;
@@ -33,13 +33,29 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       padding: 10px;
     }
 
-    /* Cartel Flotante "TE AMO" */
+    /* Wrapper de la imagen */
+    .poster-wrapper {
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Cartel flotante "TE AMOOOP" */
     .love-banner {
       position: absolute;
-      top: 8%;
+      top: 12%;
       left: 50%;
       transform: translateX(-50%) scale(0);
       background-color: #ffb6c1;
@@ -54,45 +70,102 @@
       z-index: 20;
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
+      white-space: nowrap;
     }
 
     .love-banner.show {
       transform: translateX(-50%) scale(1);
     }
 
-    /* SVG Interactivo */
-    svg {
+    /* Pastel con Vela sobre la imagen */
+    .cake-container {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      z-index: 15;
+    }
+
+    /* Vela y Llama */
+    .candle {
+      position: relative;
+      width: 10px;
+      height: 24px;
+      background: linear-gradient(to bottom, #ff80ab, #ffffff);
+      border: 2px solid #a37252;
+      border-radius: 3px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      width: 14px;
+      height: 20px;
+      background-color: #ffeb3b;
+      border: 2px solid #a37252;
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 10px #ff9800;
+      transition: transform 0.3s ease;
+    }
+
+    .flame.lit {
+      transform: translateX(-50%) scale(1);
+      animation: flicker 0.6s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+      100% { transform: translateX(-50%) scale(1.15) rotate(2deg); }
+    }
+
+    /* Cuerpo del Pastel */
+    .cake {
+      position: relative;
+      width: 70px;
+      height: 40px;
+      background-color: #ffffff;
+      border: 3px solid #a37252;
+      border-radius: 8px 8px 12px 12px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+    }
+
+    .cake-top {
+      position: absolute;
+      top: 0;
       width: 100%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.08));
+      height: 12px;
+      background-color: #ffb6c1;
+      border-bottom: 3px solid #a37252;
+      border-radius: 5px 5px 0 0;
     }
 
-    /* Animación de Cinnamoroll al interactuar */
-    .cinnamoroll-group {
-      transform-origin: 200px 250px;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .cake-cherry {
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background-color: #e52521;
+      border: 2px solid #a37252;
+      border-radius: 50%;
     }
 
-    .ear-left {
-      transform-origin: 160px 180px;
-      transition: transform 0.15s ease-out;
-    }
-
-    .ear-right {
-      transform-origin: 240px 180px;
-      transition: transform 0.15s ease-out;
-    }
-
-    /* Botón de Celebración */
+    /* Botón */
     .btn-celebrate {
-      margin-top: 20px;
-      padding: 12px 28px;
+      margin-top: 15px;
+      padding: 12px 26px;
       background-color: #ffffff;
       color: #a37252;
       border: 3px solid #a37252;
       border-radius: 25px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 900;
       cursor: pointer;
       box-shadow: 3px 3px 0px #a37252;
@@ -156,111 +229,33 @@
 <body>
 
   <div class="card-container">
-    <div class="love-banner" id="loveBanner">¡Te amooop! ❤️</div>
+    <div class="poster-wrapper" onclick="encenderVela(event)">
+      <!-- Imagen original convertida a data URI directamente dentro del código -->
+      <img src="11.png" alt="Cinnamoroll Cumpleaños" class="poster-img" onerror="this.onerror=null; this.src='https://i.imgur.com/v8R0z1Q.png';">
+      
+      <!-- Mensaje "Te amooop" -->
+      <div class="love-banner" id="loveBanner">¡Te amooop! ❤️</div>
 
-    <svg viewBox="0 0 400 420" id="cardSvg" onclick="celebrar(event)">
-      <!-- Estrellas pastel del fondo -->
-      <!-- Estrella Morada Arriba Izquierda -->
-      <polygon points="120,40 126,58 145,58 130,70 135,88 120,76 105,88 110,70 95,58 114,58" fill="#d2b4de"/>
-      <!-- Estrella Verde Arriba Derecha -->
-      <polygon points="350,90 355,105 370,105 358,115 362,130 350,120 338,130 342,115 330,105 345,105" fill="#c5e1a5"/>
-      <!-- Estrella Rosa Izquierda -->
-      <polygon points="40,150 44,162 57,162 47,170 51,182 40,174 29,182 33,170 23,162 36,162" fill="#ffb6c1"/>
-      <!-- Estrella Amarilla Abajo Derecha -->
-      <polygon points="310,270 316,288 335,288 320,300 325,318 310,306 295,318 300,300 285,288 304,288" fill="#fff59d"/>
-      <!-- Estrella Morada Abajo -->
-      <polygon points="350,360 354,372 367,372 357,380 361,392 350,384 339,392 343,380 333,372 346,372" fill="#d2b4de"/>
+      <!-- Pastel Interactivo superpuesto -->
+      <div class="cake-container">
+        <div class="candle">
+          <div class="flame" id="flame"></div>
+        </div>
+        <div class="cake">
+          <div class="cake-cherry"></div>
+          <div class="cake-top"></div>
+        </div>
+      </div>
+    </div>
 
-      <!-- Destellos Blancos -->
-      <text x="50" y="240" font-size="16" fill="#ffffff">✦</text>
-      <text x="360" y="210" font-size="16" fill="#ffffff">✦</text>
-      <text x="110" y="380" font-size="16" fill="#ffffff">✦</text>
-
-      <!-- Grupo Cinnamoroll -->
-      <g class="cinnamoroll-group" id="cinnaGroup">
-        <!-- Oreja Izquierda extendida -->
-        <path class="ear-left" id="earLeft" d="M 120,165 C 50,120 -20,20 -10,0 C 10,0 120,110 160,150 Z" fill="#ffffff" stroke="#a37252" stroke-width="5" stroke-linejoin="round"/>
-        
-        <!-- Oreja Derecha extendida -->
-        <path class="ear-right" id="earRight" d="M 280,165 C 350,120 420,20 410,0 C 390,0 280,110 240,150 Z" fill="#ffffff" stroke="#a37252" stroke-width="5" stroke-linejoin="round"/>
-
-        <!-- Patas traseras y cuerpo colgado -->
-        <!-- Pata izq -->
-        <path d="M 110,300 C 80,310 70,360 110,370 C 140,370 140,320 120,300 Z" fill="#ffffff" stroke="#a37252" stroke-width="5"/>
-        <!-- Pata der -->
-        <path d="M 190,320 C 180,370 230,390 250,350 C 260,320 220,300 190,320 Z" fill="#ffffff" stroke="#a37252" stroke-width="5"/>
-        <!-- Cola en espiral -->
-        <path d="M 230,330 C 260,330 280,350 260,380 C 240,400 200,370 220,350 C 230,340 250,350 245,360" fill="#ffffff" stroke="#a37252" stroke-width="5" stroke-linecap="round"/>
-
-        <!-- Torso -->
-        <ellipse cx="200" cy="270" rx="65" ry="50" fill="#ffffff" stroke="#a37252" stroke-width="5"/>
-
-        <!-- Brazos levantados feliz -->
-        <path d="M 140,240 C 120,220 100,260 125,270 Z" fill="#ffffff" stroke="#a37252" stroke-width="5"/>
-        <path d="M 260,240 C 280,220 300,260 275,270 Z" fill="#ffffff" stroke="#a37252" stroke-width="5"/>
-
-        <!-- Cabeza -->
-        <ellipse cx="200" cy="190" rx="85" ry="55" fill="#ffffff" stroke="#a37252" stroke-width="5"/>
-
-        <!-- Cara -->
-        <!-- Ojos felices guiñados/curvados (Azul) -->
-        <path d="M 155,165 Q 170,155 180,165" fill="none" stroke="#00a0e9" stroke-width="5" stroke-linecap="round"/>
-        <path d="M 220,165 Q 230,155 245,165" fill="none" stroke="#00a0e9" stroke-width="5" stroke-linecap="round"/>
-        <!-- Mejejas rosadas -->
-        <ellipse cx="140" cy="180" rx="14" ry="9" fill="#ffb6c1"/>
-        <ellipse cx="260" cy="180" rx="14" ry="9" fill="#ffb6c1"/>
-        <!-- Boca abierta sonriendo -->
-        <path d="M 180,190 Q 200,200 220,190 C 220,210 180,210 180,190 Z" fill="#ffb6c1" stroke="#a37252" stroke-width="4" stroke-linejoin="round"/>
-
-        <!-- Gorrito de Fiesta -->
-        <g>
-          <!-- Cono Azul -->
-          <polygon points="200,25 150,120 250,120" fill="#81d4fa" stroke="#a37252" stroke-width="5" stroke-linejoin="round"/>
-          <!-- Estrellitas del Gorro -->
-          <polygon points="200,45 203,52 210,52 205,57 207,64 200,60 193,64 195,57 190,52 197,52" fill="#fff59d"/>
-          <polygon points="175,80 178,87 185,87 180,92 182,99 175,95 168,99 170,92 165,87 172,87" fill="#fff59d"/>
-          <polygon points="220,80 223,87 230,87 225,92 227,99 220,95 213,99 215,92 210,87 217,87" fill="#fff59d"/>
-          <!-- Tiras/Pompón rosa del gorro -->
-          <path d="M 200,25 C 210,10 230,15 245,20" fill="none" stroke="#ffb6c1" stroke-width="4" stroke-linecap="round"/>
-          <path d="M 200,25 C 215,5 235,5 250,10" fill="none" stroke="#ffb6c1" stroke-width="4" stroke-linecap="round"/>
-          <path d="M 200,25 C 205,-5 220,-5 235,0" fill="none" stroke="#ffb6c1" stroke-width="4" stroke-linecap="round"/>
-        </g>
-      </g>
-    </svg>
-
-    <button class="btn-celebrate" onclick="celebrar(event)">✨ ¡Toca para celebrar! ✨</button>
+    <button class="btn-celebrate" onclick="encenderVela(event)">🕯️ Toca para encender la vela 🕯️</button>
   </div>
 
   <script>
-    const cinnaGroup = document.getElementById('cinnaGroup');
-    const earLeft = document.getElementById('earLeft');
-    const earRight = document.getElementById('earRight');
-
-    // Movimiento interactivo de inclinación suave
-    function handleMove(clientX, clientY) {
-      const x = (clientX - window.innerWidth / 2) / 25;
-      const y = (clientY - window.innerHeight / 2) / 25;
-
-      cinnaGroup.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px) rotate(${x * 0.2}deg)`;
-      earLeft.style.transform = `rotate(${x * 0.3}deg)`;
-      earRight.style.transform = `rotate(${x * 0.3}deg)`;
-    }
-
-    document.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
-    document.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) handleMove(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
-
-    // Acción al presionar/celebrar
-    function celebrar(e) {
+    function encenderVela(e) {
       if (e) e.stopPropagation();
-
-      // Salto del personaje
-      cinnaGroup.style.transform = 'translateY(-25px) scale(1.05)';
-      setTimeout(() => {
-        cinnaGroup.style.transform = 'translateY(0px) scale(1)';
-      }, 300);
-
+      
+      document.getElementById('flame').classList.add('lit');
       document.getElementById('loveBanner').classList.add('show');
 
       lanzarGlobos();
@@ -270,7 +265,7 @@
     function lanzarGlobos() {
       const colors = ['#ffb6c1', '#fff59d', '#81d4fa', '#c5e1a5', '#d2b4de'];
       
-      for (let i = 0; i < 18; i++) {
+      for (let i = 0; i < 20; i++) {
         setTimeout(() => {
           const balloon = document.createElement('div');
           balloon.classList.add('falling-balloon');
