@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>¡Feliz Cumpleaños con Cinnamoroll!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #eef7ff;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px 10px;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    h1 {
+      color: #7ab8f5;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 8px;
+      text-align: center;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+    }
+
+    p {
+      color: #92a8d1;
+      margin-bottom: 15px;
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      text-align: center;
+    }
+
+    /* Contenedor del personaje */
+    .stage {
+      position: relative;
+      width: 280px;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.1s ease-out;
+      margin: 10px 0;
+    }
+
+    /* Cinnamoroll CSS */
+    .cinnamoroll {
+      position: relative;
+      width: 180px;
+      height: 140px;
+    }
+
+    /* Orejas */
+    .ear {
+      position: absolute;
+      width: 100px;
+      height: 45px;
+      background-color: #ffffff;
+      border: 3px solid #7ab8f5;
+      border-radius: 50px;
+      top: 35px;
+      transition: transform 0.1s ease-out;
+    }
+
+    .ear.left {
+      left: -60px;
+      transform-origin: right center;
+      transform: rotate(-10deg);
+    }
+
+    .ear.right {
+      right: -60px;
+      transform-origin: left center;
+      transform: rotate(10deg);
+    }
+
+    /* Cabeza */
+    .head {
+      position: absolute;
+      width: 170px;
+      height: 110px;
+      background-color: #ffffff;
+      border: 3px solid #7ab8f5;
+      border-radius: 50%;
+      top: 10px;
+      left: 5px;
+      z-index: 2;
+    }
+
+    /* Ojos y Mejillas */
+    .eye {
+      position: absolute;
+      width: 14px;
+      height: 18px;
+      background-color: #5c9ce6;
+      border-radius: 50%;
+      top: 45px;
+    }
+
+    .eye.left { left: 45px; }
+    .eye.right { right: 45px; }
+
+    .cheek {
+      position: absolute;
+      width: 22px;
+      height: 12px;
+      background-color: #ffb6c1;
+      border-radius: 50%;
+      top: 58px;
+      opacity: 0.7;
+    }
+
+    .cheek.left { left: 25px; }
+    .cheek.right { right: 25px; }
+
+    .mouth {
+      position: absolute;
+      width: 12px;
+      height: 8px;
+      border-bottom: 3px solid #5c9ce6;
+      border-radius: 0 0 10px 10px;
+      top: 58px;
+      left: 79px;
+    }
+
+    /* Cuerpecito */
+    .body {
+      position: absolute;
+      width: 80px;
+      height: 60px;
+      background-color: #ffffff;
+      border: 3px solid #7ab8f5;
+      border-radius: 40px;
+      bottom: 0px;
+      left: 50px;
+      z-index: 1;
+    }
+
+    /* Pastel de Cumpleaños */
+    .cake {
+      position: absolute;
+      bottom: -10px;
+      left: 50px;
+      width: 80px;
+      height: 50px;
+      background-color: #fff0f5;
+      border: 3px solid #7ab8f5;
+      border-radius: 10px 10px 5px 5px;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cake-icing {
+      width: 100%;
+      height: 15px;
+      background-color: #ffb6c1;
+      border-radius: 7px 7px 0 0;
+    }
+
+    .candle {
+      position: absolute;
+      top: -15px;
+      width: 8px;
+      height: 15px;
+      background-color: #fff;
+      border: 1px solid #7ab8f5;
+    }
+
+    .flame {
+      position: absolute;
+      top: -10px;
+      width: 8px;
+      height: 10px;
+      background-color: #ffa500;
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 8px #ffa500;
+      animation: flicker 0.6s infinite alternate;
+      display: none;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+
+    /* Confeti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      border-radius: 3px;
+      animation: fall 3s linear forwards;
+      z-index: 10;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Botón de interacción */
+    .btn {
+      margin-top: 15px;
+      padding: 12px 24px;
+      background-color: #7ab8f5;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background 0.3s, transform 0.1s;
+      z-index: 5;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    @media (hover: hover) {
+      .btn:hover {
+        background-color: #5c9ce6;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Ajuste de escala para pantallas muy pequeñas */
+    @media (max-width: 360px) {
+      .stage {
+        transform: scale(0.85);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 ¡Feliz Cumpleaños! 🎉</h1>
+  <p id="instructionText">Mueve el mouse o toca la pantalla para interactuar</p>
+
+  <div class="stage" id="stage">
+    <div class="cinnamoroll">
+      <div class="ear left" id="earLeft"></div>
+      <div class="ear right" id="earRight"></div>
+      <div class="head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="cheek left"></div>
+        <div class="cheek right"></div>
+        <div class="mouth"></div>
+      </div>
+      <div class="body"></div>
+      <div class="cake">
+        <div class="candle">
+          <div class="flame" id="flame"></div>
+        </div>
+        <div class="cake-icing"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="encenderVela(event)">✨ ¡Encender la vela! ✨</button>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const earLeft = document.getElementById('earLeft');
+    const earRight = document.getElementById('earRight');
+    const flame = document.getElementById('flame');
+    const instructionText = document.getElementById('instructionText');
+
+    // Detectar si el dispositivo es táctil
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      instructionText.textContent = "¡Toca la pantalla para lanzar confeti!";
+    }
+
+    // Función unificada para manejar movimiento (Mouse y Touch)
+    function handleMove(clientX, clientY) {
+      const x = (clientX - window.innerWidth / 2) / 20;
+      const y = (clientY - window.innerHeight / 2) / 20;
+
+      stage.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.5}deg)`;
+      earLeft.style.transform = `rotate(${-10 + x * 0.5}deg)`;
+      earRight.style.transform = `rotate(${10 + x * 0.5}deg)`;
+    }
+
+    // Eventos Mouse
+    document.addEventListener('mousemove', (e) => {
+      handleMove(e.clientX, e.clientY);
+    });
+
+    // Eventos Touch
+    document.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        handleMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    // Crear confeti al hacer clic o tocar
+    function triggerConfetti(clientX, clientY) {
+      for (let i = 0; i < 12; i++) {
+        createConfetti(clientX, clientY);
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      triggerConfetti(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('touchstart', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      if (e.touches.length > 0) {
+        triggerConfetti(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    function createConfetti(x, y) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      
+      const colors = ['#ffb6c1', '#7ab8f5', '#fff0f5', '#ffeb3b', '#b39ddb'];
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      confetti.style.left = `${x + (Math.random() * 60 - 30)}px`;
+      confetti.style.top = `${y + (Math.random() * 60 - 30)}px`;
+
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 3000);
+    }
+
+    // Encender vela e interactuar
+    function encenderVela(e) {
+      if (e) e.stopPropagation();
+      flame.style.display = 'block';
+      
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          createConfetti(
+            Math.random() * window.innerWidth, 
+            Math.random() * (window.innerHeight / 2)
+          );
+        }, i * 35);
+      }
+    }
+  </script>
+</body>
+</html>
